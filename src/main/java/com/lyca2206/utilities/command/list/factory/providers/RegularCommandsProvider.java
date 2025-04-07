@@ -1,6 +1,7 @@
 package com.lyca2206.utilities.command.list.factory.providers;
 
 import com.lyca2206.controller.commands.LogWorkoutCommand;
+import com.lyca2206.controller.commands.SignOutCommand;
 import com.lyca2206.controller.commands.ViewLogCommand;
 import com.lyca2206.controller.commands.ViewWorkoutCommand;
 import com.lyca2206.libraries.command.processor.Command;
@@ -19,6 +20,13 @@ public class RegularCommandsProvider extends CommandsProvider {
     @Override
     public Collection<Command> createCommands() {
         return List.of(
+                new SignOutCommand(
+                        processor,
+                        "signOut",
+                        "signOut - Signs out from the application",
+                        commandsFactory
+                ),
+
                 new ViewWorkoutCommand(
                         processor,
                         "viewWorkout",

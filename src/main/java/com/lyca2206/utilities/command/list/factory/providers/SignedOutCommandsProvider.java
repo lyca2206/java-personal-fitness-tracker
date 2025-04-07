@@ -33,7 +33,8 @@ public class SignedOutCommandsProvider extends CommandsProvider {
                 new SignInCommand(
                         processor,
                         "signIn",
-                        "signIn - Prompts sign in form, asking for username and password"
+                        "signIn - Prompts sign in form, asking for username and password",
+                        commandsFactory
                 ),
 
                 new SignUpCommand(

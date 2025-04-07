@@ -23,7 +23,8 @@ public class AdminCommandsProvider extends CommandsProvider {
                 new SignOutCommand(
                         processor,
                         "signOut",
-                        "signOut - Signs out from the application"
+                        "signOut - Signs out from the application",
+                        commandsFactory
                 ),
 
                 new CreateExerciseCommand(
