@@ -2,6 +2,7 @@ package com.lyca2206.controller.commands;
 
 import com.lyca2206.libraries.command.processor.Command;
 import com.lyca2206.libraries.command.processor.CommandProcessor;
+import com.lyca2206.libraries.session.Session;
 import com.lyca2206.model.User;
 import com.lyca2206.repository.abstraction.AuthenticationRepository;
 import com.lyca2206.utilities.command.list.factory.CommandsFactory;
@@ -31,6 +32,8 @@ public class SignInCommand extends Command {
 
             Collection<Command> commands = commandsFactory.createCommands(storedUser.getRole().name());
             processor.changeCommands(commands);
+
+            Session.getInstance().setPrincipal(storedUser);
 
             System.out.println("Signed in successfully");
 

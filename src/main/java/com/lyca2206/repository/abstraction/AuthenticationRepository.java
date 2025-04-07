@@ -8,6 +8,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 public interface AuthenticationRepository {
-    User signIn(User user) throws AccountNotFoundException, FailedLoginException;
+    User signIn(User user) throws AccountNotFoundException, FailedLoginException, NoSuchAlgorithmException, InvalidKeySpecException;
     void signUp(User user) throws NoSuchAlgorithmException, InvalidKeySpecException;
 }

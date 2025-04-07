@@ -32,6 +32,18 @@ public class User {
         this.lastName = lastName;
     }
 
+    public User(String email, Role role, String firstName, String lastName) {
+        validateEmail(email);
+        validateRole(role);
+        validateName(firstName);
+        validateName(lastName);
+
+        this.email = email;
+        this.role = role;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     private void validateEmail(String email) {
         Pattern regexPattern = Pattern.compile("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
 

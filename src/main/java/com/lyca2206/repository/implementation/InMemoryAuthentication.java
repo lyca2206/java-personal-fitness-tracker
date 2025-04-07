@@ -1,5 +1,6 @@
 package com.lyca2206.repository.implementation;
 
+import com.lyca2206.model.Role;
 import com.lyca2206.model.User;
 import com.lyca2206.repository.abstraction.AuthenticationRepository;
 import com.lyca2206.utilities.hash.generator.HashGenerator;
@@ -8,34 +9,53 @@ import javax.security.auth.login.AccountNotFoundException;
 import javax.security.auth.login.FailedLoginException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Arrays;
 import java.util.Map;
 
 public class InMemoryAuthentication implements AuthenticationRepository {
-    private final Map<String, User> users;
+    private final Map<String, StoredUser> users;
 
-    public InMemoryAuthentication(Map<String, User> users) {
+    public InMemoryAuthentication(Map<String, StoredUser> users) {
         this.users = users;
     }
 
     @Override
-    public User signIn(User user) throws AccountNotFoundException, FailedLoginException {
-        User storedUser = users.get(user.getEmail());
+    public User signIn(User user) throws AccountNotFoundException, FailedLoginException, NoSuchAlgorithmException, InvalidKeySpecException {
+        StoredUser storedUser = users.get(user.getEmail());
 
         if (storedUser == null) {
             throw new AccountNotFoundException("The specified user couldn't be found");
         }
 
-        if (!storedUser.getPassword().equals(user.getPassword())) {
+        byte[] hash = HashGenerator.hashPassword(user.getPassword().toCharArray(), storedUser.salt);
+
+        if (!Arrays.equals(storedUser.hash, hash)) {
             throw new FailedLoginException("The given credentials don't match");
         }
 
-        return storedUser;
+        return new User(storedUser.email, Role.valueOf(storedUser.role.name()), storedUser.firstName, storedUser.lastName);
     }
 
     @Override
     public void signUp(User user) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        byte[] salt = HashGenerator.getSalt();
-        byte[] hash = HashGenerator.hashPassword(user.getPassword().toCharArray(), salt);
-        users.put(user.getEmail(), user);
+        users.put(user.getEmail(), new StoredUser(user));
+    }
+
+    public static class StoredUser {
+        private final String email;
+        private final byte[] salt;
+        private final byte[] hash;
+        private final Role role;
+        private final String firstName;
+        private final String lastName;
+
+        public StoredUser(User user) throws NoSuchAlgorithmException, InvalidKeySpecException {
+            email = user.getEmail();
+            salt = HashGenerator.getSalt();
+            hash = HashGenerator.hashPassword(user.getPassword().toCharArray(), salt);
+            role = Role.valueOf(user.getRole().name());
+            firstName = user.getFirstName();
+            lastName = user.getLastName();
+        }
     }
 }
