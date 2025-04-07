@@ -65,7 +65,7 @@ public class User {
 
     public void setPassword(byte[] salt, byte[] hash) {
         validatePassword(salt, hash);
-        this.password = Arrays.toString(salt) + " " + Arrays.toString(hash);
+        this.password = new String(salt) + " " + new String(hash);
     }
 
     private void validatePassword(byte[] salt, byte[] hash) {

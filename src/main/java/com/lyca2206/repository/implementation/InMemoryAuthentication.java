@@ -4,12 +4,8 @@ import com.lyca2206.model.User;
 import com.lyca2206.repository.abstraction.AuthenticationRepository;
 import com.lyca2206.utilities.hash.generator.HashGenerator;
 
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
-import java.security.spec.KeySpec;
 import java.util.Map;
 
 public class InMemoryAuthentication implements AuthenticationRepository {
