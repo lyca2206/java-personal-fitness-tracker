@@ -4,17 +4,16 @@ import java.util.regex.Pattern;
 
 public class User {
     private final String email;
-    private final String password;
+    private String password;
     private final Role role;
     private final String firstName;
     private final String lastName;
 
     public User(String email, String password) {
         validateEmail(email);
-        validatePassword(password);
 
         this.email = email;
-        this.password = password;
+        setPassword(password);
         this.role = null;
         this.firstName = null;
         this.lastName = null;
@@ -22,12 +21,12 @@ public class User {
 
     public User(String email, String password, Role role, String firstName, String lastName) {
         validateEmail(email);
-        validatePassword(password);
         validateRole(role);
         validateName(firstName);
+        validateName(lastName);
 
         this.email = email;
-        this.password = password;
+        setPassword(password);
         this.role = role;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -45,7 +44,16 @@ public class User {
         }
     }
 
+    public void setPassword(String password) {
+        validatePassword(password);
+        this.password = password;
+    }
+
     private void validatePassword(String password) {
+        if (password == null) {
+            return;
+        }
+
         Pattern regexPattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$");
 
         boolean match = regexPattern
