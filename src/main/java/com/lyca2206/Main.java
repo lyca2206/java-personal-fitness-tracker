@@ -18,30 +18,30 @@ public class Main {
         Reader reader = new InputStreamReader(System.in);
         CommandProcessor processor = new MapCommandProcessor(new HashMap<>());
         Application application = new CommandLineApplication(reader, processor);
-        CommandsProvidersFactory factory = new CommandsProvidersFactory(new HashSet<>());
+        CommandsProvidersFactory providersFactory = new CommandsProvidersFactory(new HashSet<>());
 
-        factory.setProviders(List.of(
+        providersFactory.setProviders(List.of(
                 new SignedOutCommandsProvider(
-                        factory,
+                        providersFactory,
                         processor,
                         "signedOut",
                         application
                 ),
 
                 new AdminCommandsProvider(
-                        factory,
+                        providersFactory,
                         processor,
                         "admin"
                 ),
 
                 new RegularCommandsProvider(
-                        factory,
+                        providersFactory,
                         processor,
                         "regular"
                 )
         ));
 
-        processor.changeCommands(factory.createCommands("signedOut"));
+        processor.changeCommands(providersFactory.createCommands("signedOut"));
         application.run();
     }
 }
