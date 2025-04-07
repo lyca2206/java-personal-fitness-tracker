@@ -6,9 +6,6 @@ import com.lyca2206.model.Role;
 import com.lyca2206.model.User;
 import com.lyca2206.repository.abstraction.AuthenticationRepository;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-
 public class SignUpCommand extends Command {
     private final AuthenticationRepository authenticationRepository;
 
@@ -20,6 +17,7 @@ public class SignUpCommand extends Command {
     @Override
     public void execute(String[] tokens) {
         try {
+
             User user = new User(
                     tokens[0],
                     tokens[1],
@@ -29,14 +27,12 @@ public class SignUpCommand extends Command {
             );
 
             authenticationRepository.signUp(user);
-
             System.out.println("User created successfully");
-        } catch (ArrayIndexOutOfBoundsException e) {
+
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("Not enough information to create the user");
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-            System.out.println("The user couldn't be created");
         }
     }
 }
