@@ -4,11 +4,18 @@ import com.lyca2206.model.Workout;
 import com.lyca2206.repository.abstraction.WorkoutRepository;
 
 import java.util.List;
+import java.util.Map;
 
 public class InMemoryWorkout implements WorkoutRepository {
+    private final Map<String, Workout> workouts;
+
+    public InMemoryWorkout(Map<String, Workout> workouts) {
+        this.workouts = workouts;
+    }
+
     @Override
-    public Workout createWorkout(Workout workout) {
-        return null;
+    public void createWorkout(Workout workout) {
+        workouts.put(workout.getName(), workout);
     }
 
     @Override

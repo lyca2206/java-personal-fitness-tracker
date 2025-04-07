@@ -17,7 +17,7 @@ public class WorkoutExercise {
 
     private void validateExercise(Exercise exercise) {
         if (exercise == null) {
-            throw new IllegalArgumentException("The exercise is null, and it shouldn't be");
+            throw new IllegalArgumentException("The given exercise doesn't exist (it is null)");
         }
     }
 

@@ -5,7 +5,7 @@ import com.lyca2206.model.Workout;
 import java.util.List;
 
 public interface WorkoutRepository {
-    Workout createWorkout(Workout workout);
+    void createWorkout(Workout workout);
     List<Workout> getWorkouts();
     Workout getWorkout(String name);
 }

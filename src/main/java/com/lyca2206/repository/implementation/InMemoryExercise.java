@@ -3,6 +3,7 @@ package com.lyca2206.repository.implementation;
 import com.lyca2206.model.Exercise;
 import com.lyca2206.repository.abstraction.ExerciseRepository;
 
+import java.util.List;
 import java.util.Map;
 
 public class InMemoryExercise implements ExerciseRepository {
@@ -15,5 +16,16 @@ public class InMemoryExercise implements ExerciseRepository {
     @Override
     public void createExercise(Exercise exercise) {
         exercises.put(exercise.getName(), exercise);
+    }
+
+    @Override
+    public List<Exercise> getExercises() {
+        //TODO.
+        return List.of();
+    }
+
+    @Override
+    public Exercise getExercise(String name) {
+        return exercises.get(name);
     }
 }

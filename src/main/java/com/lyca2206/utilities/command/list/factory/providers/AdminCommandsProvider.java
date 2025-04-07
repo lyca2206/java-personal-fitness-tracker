@@ -7,17 +7,24 @@ import com.lyca2206.controller.commands.ViewWorkoutCommand;
 import com.lyca2206.libraries.command.processor.Command;
 import com.lyca2206.libraries.command.processor.CommandProcessor;
 import com.lyca2206.repository.abstraction.ExerciseRepository;
+import com.lyca2206.repository.abstraction.WorkoutRepository;
 import com.lyca2206.utilities.command.list.factory.CommandsFactory;
 import com.lyca2206.utilities.command.list.factory.CommandsProvider;
 
+import java.io.Reader;
 import java.util.Collection;
 import java.util.List;
 
 public class AdminCommandsProvider extends CommandsProvider {
-    private ExerciseRepository exerciseRepository;
-    public AdminCommandsProvider(CommandsFactory commandsFactory, CommandProcessor processor, String key, ExerciseRepository exerciseRepository) {
+    private final Reader reader;
+    private final ExerciseRepository exerciseRepository;
+    private final WorkoutRepository workoutRepository;
+
+    public AdminCommandsProvider(CommandsFactory commandsFactory, CommandProcessor processor, String key, Reader reader, ExerciseRepository exerciseRepository, WorkoutRepository workoutRepository) {
         super(commandsFactory, processor, key);
+        this.reader = reader;
         this.exerciseRepository = exerciseRepository;
+        this.workoutRepository = workoutRepository;
     }
 
     @Override
@@ -33,7 +40,10 @@ public class AdminCommandsProvider extends CommandsProvider {
                 new CreateWorkoutCommand(
                         processor,
                         "createWorkout",
-                        "createWorkout [name] [description] [notes] - Creates a new workout inside the application, prompting to select various exercises"
+                        "createWorkout [name] [description] [notes] - Creates a new workout inside the application, prompting to select various exercises by typing [exerciseName] [# sets] [# units]",
+                        reader,
+                        exerciseRepository,
+                        workoutRepository
                 ),
 
                 new ViewWorkoutCommand(
