@@ -15,7 +15,9 @@ public class MapCommandProcessor implements CommandProcessor {
         StringBuilder builder = new StringBuilder();
         
         commands.values().forEach(command ->
-                builder.append(command.getInformation())
+                builder
+                        .append(command.getInformation())
+                        .append("\n")
         );
         
         return builder.toString();
