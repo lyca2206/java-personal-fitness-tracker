@@ -24,7 +24,6 @@ public class InMemoryAuthentication implements AuthenticationRepository {
     public void signUp(User user) throws NoSuchAlgorithmException, InvalidKeySpecException {
         byte[] salt = HashGenerator.getSalt();
         byte[] hash = HashGenerator.hashPassword(user.getPassword().toCharArray(), salt);
-        user.setPassword(salt, hash);
         users.put(user.getEmail(), user);
     }
 }

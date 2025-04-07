@@ -1,37 +1,25 @@
 package com.lyca2206.model;
 
-import java.util.Arrays;
 import java.util.regex.Pattern;
 
 public class User {
     private final String email;
-    private String password;
+    private final String password;
     private final Role role;
     private final String firstName;
     private final String lastName;
 
-    public User(String email, Role role, String firstName, String lastName) {
+    public User(String email, String password, Role role, String firstName, String lastName) {
         validateEmail(email);
+        validatePassword(password);
         validateRole(role);
-        validateFirstName(firstName);
-        validateLastName(lastName);
+        validateName(firstName);
 
         this.email = email;
+        this.password = password;
         this.role = role;
         this.firstName = firstName;
         this.lastName = lastName;
-    }
-
-    public User(String email, String password, Role role, String firstName, String lastName) {
-        this(email, role, firstName, lastName);
-        validatePassword(password);
-        setPassword(password);
-    }
-
-    public User(String email, byte[] salt, byte[] hash, Role role, String firstName, String lastName) {
-        this(email, role, firstName, lastName);
-        validatePassword(salt, hash);
-        setPassword(salt, hash);
     }
 
     private void validateEmail(String email) {
@@ -46,11 +34,6 @@ public class User {
         }
     }
 
-    public void setPassword(String password) {
-        validatePassword(password);
-        this.password = password;
-    }
-
     private void validatePassword(String password) {
         Pattern regexPattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$");
 
@@ -63,32 +46,15 @@ public class User {
         }
     }
 
-    public void setPassword(byte[] salt, byte[] hash) {
-        validatePassword(salt, hash);
-        this.password = new String(salt) + " " + new String(hash);
-    }
-
-    private void validatePassword(byte[] salt, byte[] hash) {
-        if (salt.length != 16 || hash.length != 16) {
-            throw new IllegalArgumentException("The given salt + hash is invalid");
-        }
-    }
-
     private void validateRole(Role role) {
         if (role == null) {
             throw new IllegalArgumentException("The given role shouldn't be null");
         }
     }
 
-    private void validateFirstName(String firstName) {
-        if (firstName == null || firstName.isEmpty()) {
-            throw new IllegalArgumentException("The first name shouldn't be null or empty");
-        }
-    }
-
-    private void validateLastName(String lastName) {
-        if (lastName == null || lastName.isEmpty()) {
-            throw new IllegalArgumentException("The last name shouldn't be null or empty");
+    private void validateName(String name) {
+        if (name == null || name.length() < 3) {
+            throw new IllegalArgumentException("Any of the names shouldn't be empty and they have to be at least 3 letters long");
         }
     }
 
