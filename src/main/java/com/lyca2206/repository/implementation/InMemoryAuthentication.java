@@ -2,6 +2,7 @@ package com.lyca2206.repository.implementation;
 
 import com.lyca2206.model.User;
 import com.lyca2206.repository.abstraction.AuthenticationRepository;
+import com.lyca2206.utilities.hash.generator.HashGenerator;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -25,14 +26,8 @@ public class InMemoryAuthentication implements AuthenticationRepository {
 
     @Override
     public void signUp(User user) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        SecureRandom random = new SecureRandom();
-        byte[] salt = new byte[16];
-        random.nextBytes(salt);
-
-        KeySpec spec = new PBEKeySpec(user.getPassword().toCharArray(), salt, 65536, 128);
-        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-        byte[] hash = factory.generateSecret(spec).getEncoded();
-
+        byte[] salt = HashGenerator.getSalt();
+        byte[] hash = HashGenerator.hashPassword(user.getPassword().toCharArray(), salt);
         user.setPassword(salt, hash);
         users.put(user.getEmail(), user);
     }
