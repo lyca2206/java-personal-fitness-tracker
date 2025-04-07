@@ -6,6 +6,7 @@ import com.lyca2206.controller.commands.SignInCommand;
 import com.lyca2206.controller.commands.SignUpCommand;
 import com.lyca2206.libraries.command.processor.Command;
 import com.lyca2206.libraries.command.processor.CommandProcessor;
+import com.lyca2206.repository.abstraction.AuthenticationRepository;
 import com.lyca2206.utilities.command.list.factory.CommandsFactory;
 import com.lyca2206.utilities.command.list.factory.CommandsProvider;
 
@@ -14,10 +15,12 @@ import java.util.List;
 
 public class SignedOutCommandsProvider extends CommandsProvider {
     private final Application application;
+    private final AuthenticationRepository repository;
 
-    public SignedOutCommandsProvider(CommandsFactory commandsFactory, CommandProcessor processor, String key, Application application) {
+    public SignedOutCommandsProvider(CommandsFactory commandsFactory, CommandProcessor processor, String key, Application application, AuthenticationRepository repository) {
         super(commandsFactory, processor, key);
         this.application = application;
+        this.repository = repository;
     }
 
     @Override
@@ -33,14 +36,15 @@ public class SignedOutCommandsProvider extends CommandsProvider {
                 new SignInCommand(
                         processor,
                         "signIn",
-                        "signIn - Prompts sign in form, asking for username and password",
+                        "signIn [email] [password] - Tries to sign in as the given user",
                         commandsFactory
                 ),
 
                 new SignUpCommand(
                         processor,
                         "signUp",
-                        "signUp - Prompts sign up form, asking for various details of the user"
+                        "signUp [email] [password] [role] [firstName] [lastName] - Creates a new user in the system using the given parameters",
+                        repository
                 )
         );
     }

@@ -1,5 +1,6 @@
 package com.lyca2206.libraries.command.processor;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 
@@ -31,7 +32,11 @@ public class MapCommandProcessor implements CommandProcessor {
             return;
         }
         
-        command.execute(tokens);
+        command.execute(
+                Arrays.stream(tokens)
+                        .skip(1)
+                        .toArray(String[]::new)
+        );
     }
 
     @Override

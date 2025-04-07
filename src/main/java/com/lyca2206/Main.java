@@ -4,6 +4,8 @@ import com.lyca2206.controller.application.Application;
 import com.lyca2206.controller.application.CommandLineApplication;
 import com.lyca2206.libraries.command.processor.CommandProcessor;
 import com.lyca2206.libraries.command.processor.MapCommandProcessor;
+import com.lyca2206.repository.abstraction.AuthenticationRepository;
+import com.lyca2206.repository.implementation.InMemoryAuthentication;
 import com.lyca2206.utilities.command.list.factory.CommandsProvidersFactory;
 import com.lyca2206.utilities.command.list.factory.providers.AdminCommandsProvider;
 import com.lyca2206.utilities.command.list.factory.providers.RegularCommandsProvider;
@@ -19,13 +21,15 @@ public class Main {
         CommandProcessor processor = new MapCommandProcessor(new HashMap<>());
         Application application = new CommandLineApplication(reader, processor);
         CommandsProvidersFactory providersFactory = new CommandsProvidersFactory(new HashSet<>());
+        AuthenticationRepository authenticationRepository = new InMemoryAuthentication(new HashMap<>());
 
         providersFactory.setProviders(List.of(
                 new SignedOutCommandsProvider(
                         providersFactory,
                         processor,
                         "signedOut",
-                        application
+                        application,
+                        authenticationRepository
                 ),
 
                 new AdminCommandsProvider(
