@@ -2,6 +2,7 @@ package com.lyca2206.controller.commands;
 
 import com.lyca2206.libraries.command.processor.Command;
 import com.lyca2206.libraries.command.processor.CommandProcessor;
+import com.lyca2206.libraries.session.Session;
 import com.lyca2206.utilities.command.list.factory.CommandsFactory;
 
 import java.util.Collection;
@@ -16,8 +17,11 @@ public class SignOutCommand extends Command {
 
     @Override
     public void execute(String[] tokens) {
-        //TODO. Write Sign Out Logic!
-        Collection<Command> commands = commandsFactory.createCommands(""); //TODO. Change key!
+        Collection<Command> commands = commandsFactory.createCommands("SIGNED_OUT");
         processor.changeCommands(commands);
+
+        Session.getInstance().setPrincipal(null);
+
+        System.out.println("Signed out successfully");
     }
 }
