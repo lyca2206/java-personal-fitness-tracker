@@ -18,8 +18,8 @@ public class Main {
         Reader reader = new InputStreamReader(System.in);
         CommandProcessor processor = new MapCommandProcessor(new HashMap<>());
         Application application = new CommandLineApplication(reader, processor);
-
         CommandsProvidersFactory factory = new CommandsProvidersFactory(new HashSet<>());
+
         factory.setProviders(List.of(
                 new SignedOutCommandsProvider(
                         factory,
@@ -42,7 +42,6 @@ public class Main {
         ));
 
         processor.changeCommands(factory.createCommands("signedOut"));
-
         application.run();
     }
 }
