@@ -9,6 +9,17 @@ public class User {
     private final String firstName;
     private final String lastName;
 
+    public User(String email, String password) {
+        validateEmail(email);
+        validatePassword(password);
+
+        this.email = email;
+        this.password = password;
+        this.role = null;
+        this.firstName = null;
+        this.lastName = null;
+    }
+
     public User(String email, String password, Role role, String firstName, String lastName) {
         validateEmail(email);
         validatePassword(password);
