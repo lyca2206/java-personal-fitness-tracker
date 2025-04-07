@@ -4,6 +4,7 @@ import com.lyca2206.controller.application.Application;
 import com.lyca2206.controller.application.CommandLineApplication;
 import com.lyca2206.libraries.command.processor.CommandProcessor;
 import com.lyca2206.libraries.command.processor.MapCommandProcessor;
+import com.lyca2206.model.Role;
 import com.lyca2206.repository.abstraction.AuthenticationRepository;
 import com.lyca2206.repository.implementation.InMemoryAuthentication;
 import com.lyca2206.utilities.command.list.factory.CommandsProvidersFactory;
@@ -27,7 +28,7 @@ public class Main {
                 new SignedOutCommandsProvider(
                         providersFactory,
                         processor,
-                        "signedOut",
+                        "SIGNED_OUT",
                         application,
                         authenticationRepository
                 ),
@@ -35,17 +36,17 @@ public class Main {
                 new AdminCommandsProvider(
                         providersFactory,
                         processor,
-                        "admin"
+                        Role.ADMIN.name()
                 ),
 
                 new RegularCommandsProvider(
                         providersFactory,
                         processor,
-                        "regular"
+                        Role.REGULAR.name()
                 )
         ));
 
-        processor.changeCommands(providersFactory.createCommands("signedOut"));
+        processor.changeCommands(providersFactory.createCommands("SIGNED_OUT"));
         application.run();
     }
 }

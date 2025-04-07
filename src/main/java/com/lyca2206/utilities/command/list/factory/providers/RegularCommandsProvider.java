@@ -20,13 +20,6 @@ public class RegularCommandsProvider extends CommandsProvider {
     @Override
     public Collection<Command> createCommands() {
         return List.of(
-                new SignOutCommand(
-                        processor,
-                        "signOut",
-                        "signOut - Signs out from the application",
-                        commandsFactory
-                ),
-
                 new ViewWorkoutCommand(
                         processor,
                         "viewWorkout",
@@ -43,6 +36,13 @@ public class RegularCommandsProvider extends CommandsProvider {
                         processor,
                         "viewWorkoutLog",
                         "viewWorkoutLog [name] - Shows up the log of a given workout, specifying the time taken in each exercise along with the timestamp"
+                ),
+
+                new SignOutCommand(
+                        processor,
+                        "signOut",
+                        "signOut - Signs out from the application",
+                        commandsFactory
                 )
         );
     }

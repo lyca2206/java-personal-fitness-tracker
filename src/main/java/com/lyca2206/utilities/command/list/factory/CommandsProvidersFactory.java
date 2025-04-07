@@ -18,7 +18,7 @@ public class CommandsProvidersFactory implements CommandsFactory {
         Collection<Command> collection = new LinkedList<>();
         
         providers.forEach(provider -> {
-            if (provider.key.equals(key)) {
+            if (provider.key.equalsIgnoreCase(key)) {
                 collection.addAll(provider.createCommands());
             }
         });

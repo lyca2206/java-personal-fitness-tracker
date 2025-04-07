@@ -26,17 +26,11 @@ public class SignedOutCommandsProvider extends CommandsProvider {
     @Override
     public Collection<Command> createCommands() {
         return List.of(
-                new ExitCommand(
-                        processor,
-                        "exit",
-                        "exit - Exits the application",
-                        application
-                ),
-
                 new SignInCommand(
                         processor,
                         "signIn",
                         "signIn [email] [password] - Tries to sign in as the given user",
+                        repository,
                         commandsFactory
                 ),
 
@@ -45,6 +39,13 @@ public class SignedOutCommandsProvider extends CommandsProvider {
                         "signUp",
                         "signUp [email] [password] [role] [firstName] [lastName] - Creates a new user in the system using the given parameters",
                         repository
+                ),
+
+                new ExitCommand(
+                        processor,
+                        "exit",
+                        "exit - Exits the application",
+                        application
                 )
         );
     }

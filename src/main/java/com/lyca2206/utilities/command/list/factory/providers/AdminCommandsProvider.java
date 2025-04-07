@@ -20,13 +20,6 @@ public class AdminCommandsProvider extends CommandsProvider {
     @Override
     public Collection<Command> createCommands() {
         return List.of(
-                new SignOutCommand(
-                        processor,
-                        "signOut",
-                        "signOut - Signs out from the application",
-                        commandsFactory
-                ),
-
                 new CreateExerciseCommand(
                         processor,
                         "createExercise",
@@ -43,6 +36,13 @@ public class AdminCommandsProvider extends CommandsProvider {
                         processor,
                         "viewWorkout",
                         "viewWorkout [name] - Shows the information of the given workout"
+                ),
+
+                new SignOutCommand(
+                        processor,
+                        "signOut",
+                        "signOut - Signs out from the application",
+                        commandsFactory
                 )
         );
     }
