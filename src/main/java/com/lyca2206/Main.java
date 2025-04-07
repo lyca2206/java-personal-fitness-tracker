@@ -6,7 +6,9 @@ import com.lyca2206.libraries.command.processor.CommandProcessor;
 import com.lyca2206.libraries.command.processor.MapCommandProcessor;
 import com.lyca2206.model.Role;
 import com.lyca2206.repository.abstraction.AuthenticationRepository;
+import com.lyca2206.repository.abstraction.ExerciseRepository;
 import com.lyca2206.repository.implementation.InMemoryAuthentication;
+import com.lyca2206.repository.implementation.InMemoryExercise;
 import com.lyca2206.utilities.command.list.factory.CommandsProvidersFactory;
 import com.lyca2206.utilities.command.list.factory.providers.AdminCommandsProvider;
 import com.lyca2206.utilities.command.list.factory.providers.RegularCommandsProvider;
@@ -23,6 +25,7 @@ public class Main {
         Application application = new CommandLineApplication(reader, processor);
         CommandsProvidersFactory providersFactory = new CommandsProvidersFactory(new HashSet<>());
         AuthenticationRepository authenticationRepository = new InMemoryAuthentication(new HashMap<>());
+        ExerciseRepository exerciseRepository = new InMemoryExercise(new HashMap<>());
 
         providersFactory.setProviders(List.of(
                 new SignedOutCommandsProvider(
@@ -36,7 +39,8 @@ public class Main {
                 new AdminCommandsProvider(
                         providersFactory,
                         processor,
-                        Role.ADMIN.name()
+                        Role.ADMIN.name(),
+                        exerciseRepository
                 ),
 
                 new RegularCommandsProvider(

@@ -6,6 +6,7 @@ import com.lyca2206.controller.commands.SignOutCommand;
 import com.lyca2206.controller.commands.ViewWorkoutCommand;
 import com.lyca2206.libraries.command.processor.Command;
 import com.lyca2206.libraries.command.processor.CommandProcessor;
+import com.lyca2206.repository.abstraction.ExerciseRepository;
 import com.lyca2206.utilities.command.list.factory.CommandsFactory;
 import com.lyca2206.utilities.command.list.factory.CommandsProvider;
 
@@ -13,8 +14,10 @@ import java.util.Collection;
 import java.util.List;
 
 public class AdminCommandsProvider extends CommandsProvider {
-    public AdminCommandsProvider(CommandsFactory commandsFactory, CommandProcessor processor, String key) {
+    private ExerciseRepository exerciseRepository;
+    public AdminCommandsProvider(CommandsFactory commandsFactory, CommandProcessor processor, String key, ExerciseRepository exerciseRepository) {
         super(commandsFactory, processor, key);
+        this.exerciseRepository = exerciseRepository;
     }
 
     @Override
@@ -23,7 +26,8 @@ public class AdminCommandsProvider extends CommandsProvider {
                 new CreateExerciseCommand(
                         processor,
                         "createExercise",
-                        "createExercise [name] [measureUnit] [caloriesPerUnit] - Creates a new exercise inside the application"
+                        "createExercise [name] [measureUnit] [caloriesPerUnit] - Creates a new exercise inside the application",
+                        exerciseRepository
                 ),
 
                 new CreateWorkoutCommand(
