@@ -12,19 +12,19 @@ public record Workout(String name, String description, List<WorkoutExercise> exe
 
     private void validateName(String name) {
         if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException("The workout name needs to be non empty");
+            throw new IllegalArgumentException("The given name must be a non null value or a non empty value");
         }
     }
 
     private void validateDescription(String description) {
         if (description == null || description.isEmpty()) {
-            throw new IllegalArgumentException("The description needs to be non empty");
+            throw new IllegalArgumentException("The given description must be a non null value or a non empty value");
         }
     }
 
     private void validateNotes(String notes) {
         if (notes == null) {
-            throw new IllegalArgumentException("The description needs to be non null");
+            throw new IllegalArgumentException("The given notes must be a non null value");
         }
     }
 

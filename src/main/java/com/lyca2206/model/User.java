@@ -52,7 +52,7 @@ public class User {
                 .matches();
 
         if (!match) {
-            throw new IllegalArgumentException("The given email is invalid");
+            throw new IllegalArgumentException("The given email is invalid: it requires an @ and a domain (.com, .org, etc.)");
         }
     }
 
@@ -73,19 +73,19 @@ public class User {
                 .matches();
 
         if (!match) {
-            throw new IllegalArgumentException("The given password is invalid: it should contain 8 characters, 1 digit, 1 uppercase and 1 lowercase letter");
+            throw new IllegalArgumentException("The given password is invalid: it must contain 8 characters, 1 digit, 1 uppercase letter and 1 lowercase letter");
         }
     }
 
     private void validateRole(Role role) {
         if (role == null) {
-            throw new IllegalArgumentException("The given role shouldn't be null");
+            throw new IllegalArgumentException("The given role must be a non null value");
         }
     }
 
     private void validateName(String name) {
         if (name == null || name.length() < 3) {
-            throw new IllegalArgumentException("Any of the names shouldn't be empty and they have to be at least 3 letters long");
+            throw new IllegalArgumentException("Any of the names should be at least 3 characters long, and it has to be a non null value");
         }
     }
 

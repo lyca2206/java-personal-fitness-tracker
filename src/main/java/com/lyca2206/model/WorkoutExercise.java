@@ -9,19 +9,19 @@ public record WorkoutExercise(Exercise exercise, int sets, float units) {
 
     private void validateExercise(Exercise exercise) {
         if (exercise == null) {
-            throw new IllegalArgumentException("The given exercise doesn't exist (it is null)");
+            throw new IllegalArgumentException("The given exercise must be a non null value");
         }
     }
 
     private void validateSets(int sets) {
         if (sets <= 0) {
-            throw new IllegalArgumentException("The number of sets needs to be a positive number");
+            throw new IllegalArgumentException("The set amount must be higher than 0");
         }
     }
 
     private void validateUnits(float units) {
         if (units <= 0) {
-            throw new IllegalArgumentException("The number of units needs to be a positive number");
+            throw new IllegalArgumentException("The units must be higher than 0");
         }
     }
 

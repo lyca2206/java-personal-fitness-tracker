@@ -9,13 +9,13 @@ public record Exercise(String name, String measureUnit, float caloriesPerUnit) {
 
     private void validateName(String name) {
         if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException("The exercise name needs to be non empty");
+            throw new IllegalArgumentException("The exercise's name needs to be non null or non empty");
         }
     }
 
     private void validateMeasureUnit(String measureUnit) {
         if (measureUnit == null || measureUnit.isEmpty()) {
-            throw new IllegalArgumentException("The measure unit needs to be non empty");
+            throw new IllegalArgumentException("The unit of measure needs to be non null or non empty");
         }
     }
 

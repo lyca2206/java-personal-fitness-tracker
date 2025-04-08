@@ -24,7 +24,7 @@ public class InMemoryAuthentication implements AuthenticationRepository {
         StoredUser storedUser = storedUsers.get(user.getEmail());
 
         if (storedUser == null) {
-            throw new AccountNotFoundException("This user doesn't exist in the system");
+            throw new AccountNotFoundException("The given user does not exist");
         }
 
         byte[] hash = HashGenerator.hashPassword(
