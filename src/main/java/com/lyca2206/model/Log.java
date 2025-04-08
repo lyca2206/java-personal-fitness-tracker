@@ -34,7 +34,7 @@ public class Log {
     }
 
     public String getSummary() {
-        return "Workout: " + workout.name() + "\n" + "Date: " + time.format(DateTimeFormatter.ISO_DATE);
+        return "> Workout: " + workout.name() + "\n" + "  Date: " + time.format(DateTimeFormatter.ISO_DATE);
     }
 
     public String getAllInformation() {
@@ -58,8 +58,8 @@ public class Log {
         });
 
         builder
-                .append("\nTotal time: TODO\n")
-                .append("\nCalories: TODO\n");
+                .append("\nTotal time: TODO")
+                .append("\nCalories: TODO");
 
         return builder.toString();
     }

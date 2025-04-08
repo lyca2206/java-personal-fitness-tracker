@@ -2,10 +2,10 @@ package com.lyca2206.model;
 
 public record ExerciseLog(WorkoutExercise workoutExercise, float minutes) {
     public ExerciseLog {
-        validateMinutes();
+        validateMinutes(minutes);
     }
 
-    private void validateMinutes() {
+    private void validateMinutes(float minutes) {
         if (minutes <= 0) {
             throw new IllegalArgumentException("The minute amount needs to be a positive number");
         }

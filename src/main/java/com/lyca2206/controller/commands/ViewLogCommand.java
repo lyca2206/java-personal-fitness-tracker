@@ -34,7 +34,7 @@ public class ViewLogCommand extends Command {
 
         } catch (Exception e) {
 
-            System.out.println(e.getMessage());
+            System.out.println("\n" + e.getMessage() + "\n");
 
         }
     }
@@ -45,7 +45,7 @@ public class ViewLogCommand extends Command {
 
         Log log = logRepository.getLog(i, user);
 
-        System.out.println(log.getAllInformation());
+        System.out.println("\n" + log.getAllInformation() + "\n");
     }
 
     private void getLogs() {
@@ -53,6 +53,6 @@ public class ViewLogCommand extends Command {
 
         List<Log> logs = logRepository.getLogs(user);
 
-        logs.forEach(log -> System.out.println(log.getSummary()));
+        logs.forEach(log -> System.out.print("\n" + log.getSummary() + "\n\n"));
     }
 }

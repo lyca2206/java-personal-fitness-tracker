@@ -72,7 +72,8 @@ public class Main {
                         Role.REGULAR.name(),
                         workoutRepository,
                         logRepository,
-                        reader
+                        reader,
+                        LinkedList::new
                 )
         ));
 

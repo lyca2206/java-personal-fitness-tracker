@@ -29,7 +29,7 @@ public class InMemoryLog implements LogRepository {
 
     @Override
     public List<Log> getLogs(User user) {
-        return logs.get(user);
+        return logs.getOrDefault(user, listSupplier.get());
     }
 
     @Override
