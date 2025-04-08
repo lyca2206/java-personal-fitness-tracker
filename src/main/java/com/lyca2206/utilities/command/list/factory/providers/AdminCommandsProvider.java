@@ -37,7 +37,7 @@ public class AdminCommandsProvider extends CommandsProvider {
                 new CreateExerciseCommand(
                         processor,
                         "createExercise",
-                        "createExercise [name] [measureUnit] [caloriesPerUnit] - Creates a new exercise inside the application",
+                        "createExercise [name] [measureUnit] [caloriesPerUnit] - Creates a new workoutExercise inside the application",
                         exerciseRepository
                 ),
 

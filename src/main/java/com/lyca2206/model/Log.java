@@ -1,6 +1,7 @@
 package com.lyca2206.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Log {
@@ -30,6 +31,37 @@ public class Log {
 
     public LocalDateTime getTime() {
         return time;
+    }
+
+    public String getSummary() {
+        return "Workout: " + workout.name() + "\n" + "Date: " + time.format(DateTimeFormatter.ISO_DATE);
+    }
+
+    public String getAllInformation() {
+        StringBuilder builder = new StringBuilder();
+
+        builder
+                .append("Workout Details for ")
+                .append(workout.name())
+                .append(" on ")
+                .append(time.format(DateTimeFormatter.ISO_DATE))
+                .append(":")
+                .append("\n\n");
+
+        exerciseLogs.forEach(exerciseLog -> {
+            builder
+                    .append(exerciseLog.workoutExercise().exercise().name())
+                    .append(": ")
+                    .append(exerciseLog.minutes())
+                    .append(" minutes")
+                    .append("\n");
+        });
+
+        builder
+                .append("\nTotal time: TODO\n")
+                .append("\nCalories: TODO\n");
+
+        return builder.toString();
     }
 
     @Override

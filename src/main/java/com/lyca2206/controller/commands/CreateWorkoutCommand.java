@@ -98,7 +98,7 @@ public class CreateWorkoutCommand extends Command {
 
         } catch (IndexOutOfBoundsException e) {
 
-            System.out.println("\nThe provided information isn't enough to create a new workout exercise\n");
+            System.out.println("\nThe provided information isn't enough to create a new workout workoutExercise\n");
 
         } catch (NumberFormatException e) {
 

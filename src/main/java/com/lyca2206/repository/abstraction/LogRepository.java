@@ -11,5 +11,5 @@ public interface LogRepository {
 
     List<Log> getLogs(User user);
 
-    Log getLog(int index, User user) throws InstanceNotFoundException;
+    Log getLog(int i, User user) throws InstanceNotFoundException;
 }

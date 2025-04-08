@@ -1,6 +1,6 @@
 package com.lyca2206.model;
 
-public record ExerciseLog(WorkoutExercise exercise, float minutes) {
+public record ExerciseLog(WorkoutExercise workoutExercise, float minutes) {
     public ExerciseLog {
         validateMinutes();
     }
@@ -14,7 +14,7 @@ public record ExerciseLog(WorkoutExercise exercise, float minutes) {
     @Override
     public String toString() {
         return "ExerciseLog{" +
-                "exercise=" + exercise +
+                "workoutExercise=" + workoutExercise +
                 ", minutes=" + minutes +
                 '}';
     }

@@ -21,27 +21,38 @@ public class ViewLogCommand extends Command {
     @Override
     public void execute(String[] tokens) {
         try {
-            Log log = logRepository.getLog(
-                    Integer.parseInt(tokens[0]),
-                    (User) Session.getInstance().getPrincipal()
-            );
 
-            System.out.println(log.getWorkout().name() + " - " + log.getTime());
-
-            log.getExerciseLogs().forEach(exerciseLog ->
-                    System.out.println(exerciseLog.exercise().exercise().name() + ": " + exerciseLog.minutes() + " minutes")
-            );
+            getLog(tokens);
 
         } catch (IndexOutOfBoundsException e) {
-            List<Log> logs = logRepository.getLogs((User) Session.getInstance().getPrincipal());
-            logs.forEach(log -> {
-                System.out.println(log.getTime());
-                System.out.println(log.getWorkout().name());
-            });
+
+            getLogs();
+
         } catch (NumberFormatException e) {
-            System.out.println("The given type isn't valid");
-        } catch (InstanceNotFoundException e) {
+
+            System.out.println("\nThe provided types aren't compatible\n");
+
+        } catch (Exception e) {
+
             System.out.println(e.getMessage());
+
         }
+    }
+
+    private void getLog(String[] tokens) throws InstanceNotFoundException {
+        int i = Integer.parseInt(tokens[0]);
+        User user = (User) Session.getInstance().getPrincipal();
+
+        Log log = logRepository.getLog(i, user);
+
+        System.out.println(log.getAllInformation());
+    }
+
+    private void getLogs() {
+        User user = (User) Session.getInstance().getPrincipal();
+
+        List<Log> logs = logRepository.getLogs(user);
+
+        logs.forEach(log -> System.out.println(log.getSummary()));
     }
 }

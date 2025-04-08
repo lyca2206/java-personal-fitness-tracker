@@ -29,7 +29,7 @@ public class InMemoryExercise implements ExerciseRepository {
         Exercise exercise = exercises.get(name);
 
         if (exercise == null) {
-            throw new InstanceNotFoundException("The given exercise couldn't be found in the system");
+            throw new InstanceNotFoundException("The given workoutExercise couldn't be found in the system");
         }
 
         return exercise;

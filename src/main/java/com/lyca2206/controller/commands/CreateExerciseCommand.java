@@ -24,11 +24,11 @@ public class CreateExerciseCommand extends Command {
 
             Exercise exercise = createExerciseInstance(tokens);
             exerciseRepository.createExercise(exercise);
-            System.out.println("\nThe exercise has been created successfully\n");
+            System.out.println("\nThe workoutExercise has been created successfully\n");
 
         } catch (IndexOutOfBoundsException e) {
 
-            System.out.println("\nThe provided information isn't enough to create a new exercise\n");
+            System.out.println("\nThe provided information isn't enough to create a new workoutExercise\n");
 
         } catch (NumberFormatException e) {
 

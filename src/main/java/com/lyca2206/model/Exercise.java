@@ -9,7 +9,7 @@ public record Exercise(String name, String measureUnit, float caloriesPerUnit) {
 
     private void validateName(String name) {
         if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException("The exercise's name needs to be non null or non empty");
+            throw new IllegalArgumentException("The workoutExercise's name needs to be non null or non empty");
         }
     }
 

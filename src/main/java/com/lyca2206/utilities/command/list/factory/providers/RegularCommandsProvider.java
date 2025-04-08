@@ -40,7 +40,7 @@ public class RegularCommandsProvider extends CommandsProvider {
                 new LogWorkoutCommand(
                         processor,
                         "logWorkout",
-                        "logWorkout [name] - Allows you to enter the taken minutes to complete each exercise in a workout",
+                        "logWorkout [name] - Allows you to enter the taken minutes to complete each workoutExercise in a workout",
                         reader,
                         workoutRepository,
                         logRepository
@@ -49,7 +49,7 @@ public class RegularCommandsProvider extends CommandsProvider {
                 new ViewLogCommand(
                         processor,
                         "viewWorkoutLog",
-                        "viewWorkoutLog [index] - Shows up the log of a given workout, specifying the time taken in each exercise along with the timestamp",
+                        "viewWorkoutLog [index] - Shows up the log of a given workout, specifying the time taken in each workoutExercise along with the timestamp",
                         logRepository
                 ),
 

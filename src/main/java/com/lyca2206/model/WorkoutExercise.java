@@ -9,7 +9,7 @@ public record WorkoutExercise(Exercise exercise, int sets, float units) {
 
     private void validateExercise(Exercise exercise) {
         if (exercise == null) {
-            throw new IllegalArgumentException("The given exercise must be a non null value");
+            throw new IllegalArgumentException("The given workoutExercise must be a non null value");
         }
     }
 
@@ -28,7 +28,7 @@ public record WorkoutExercise(Exercise exercise, int sets, float units) {
     @Override
     public String toString() {
         return "WorkoutExercise{" +
-                "exercise=" + exercise +
+                "workoutExercise=" + exercise +
                 ", sets=" + sets +
                 ", units=" + units +
                 '}';
