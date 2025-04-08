@@ -67,6 +67,10 @@ public class CreateWorkoutCommand extends Command {
         BufferedReader bufferedReader = new BufferedReader(reader);
         boolean isRunning = true;
 
+        System.out.println(
+                "\nSelect the exercises you want to add to the workout by typing [Exercise Name] [# Sets] [# Units].\nPress Enter when you are done:\n"
+        );
+
         while (isRunning) {
             String line = bufferedReader.readLine();
             String[] tokens = line.trim().split(" ");
