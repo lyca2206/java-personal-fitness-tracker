@@ -20,11 +20,11 @@ public class InMemoryWorkout implements WorkoutRepository {
 
     @Override
     public List<Workout> getWorkouts() {
-        return List.of();
+        return workouts.values().stream().toList();
     }
 
     @Override
     public Workout getWorkout(String name) {
-        return null;
+        return workouts.get(name);
     }
 }

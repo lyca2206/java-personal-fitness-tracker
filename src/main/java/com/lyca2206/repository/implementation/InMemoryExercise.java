@@ -20,8 +20,7 @@ public class InMemoryExercise implements ExerciseRepository {
 
     @Override
     public List<Exercise> getExercises() {
-        //TODO.
-        return List.of();
+        return exercises.values().stream().toList();
     }
 
     @Override
