@@ -1,18 +1,10 @@
 package com.lyca2206.model;
 
-public class Exercise {
-    private final String name;
-    private final String measureUnit;
-    private final float caloriesPerUnit;
-
-    public Exercise(String name, String measureUnit, float caloriesPerUnit) {
+public record Exercise(String name, String measureUnit, float caloriesPerUnit) {
+    public Exercise {
         validateName(name);
         validateMeasureUnit(measureUnit);
         validateCaloriesPerUnit(caloriesPerUnit);
-
-        this.name = name;
-        this.measureUnit = measureUnit;
-        this.caloriesPerUnit = caloriesPerUnit;
     }
 
     private void validateName(String name) {
@@ -28,20 +20,17 @@ public class Exercise {
     }
 
     private void validateCaloriesPerUnit(float caloriesPerUnit) {
-        if ( caloriesPerUnit <= 0 ) {
+        if (caloriesPerUnit <= 0) {
             throw new IllegalArgumentException("The calories per unit needs to be a positive value");
         }
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getMeasureUnit() {
-        return measureUnit;
-    }
-
-    public float getCaloriesPerUnit() {
-        return caloriesPerUnit;
+    @Override
+    public String toString() {
+        return "Exercise{" +
+                "name='" + name + '\'' +
+                ", measureUnit='" + measureUnit + '\'' +
+                ", caloriesPerUnit=" + caloriesPerUnit +
+                '}';
     }
 }

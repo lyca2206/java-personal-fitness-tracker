@@ -1,18 +1,10 @@
 package com.lyca2206.model;
 
-public class WorkoutExercise {
-    private final Exercise exercise;
-    private final int sets;
-    private final float units;
-
-    public WorkoutExercise(Exercise exercise, int sets, float units) {
+public record WorkoutExercise(Exercise exercise, int sets, float units) {
+    public WorkoutExercise {
         validateExercise(exercise);
         validateSets(sets);
         validateUnits(units);
-
-        this.exercise = exercise;
-        this.sets = sets;
-        this.units = units;
     }
 
     private void validateExercise(Exercise exercise) {
@@ -33,15 +25,12 @@ public class WorkoutExercise {
         }
     }
 
-    public Exercise getExercise() {
-        return exercise;
-    }
-
-    public int getSets() {
-        return sets;
-    }
-
-    public float getUnits() {
-        return units;
+    @Override
+    public String toString() {
+        return "WorkoutExercise{" +
+                "exercise=" + exercise +
+                ", sets=" + sets +
+                ", units=" + units +
+                '}';
     }
 }

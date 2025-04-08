@@ -16,7 +16,7 @@ public class InMemoryExercise implements ExerciseRepository {
 
     @Override
     public void createExercise(Exercise exercise) {
-        exercises.put(exercise.getName(), exercise);
+        exercises.put(exercise.name(), exercise);
     }
 
     @Override

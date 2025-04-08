@@ -2,21 +2,12 @@ package com.lyca2206.model;
 
 import java.util.List;
 
-public class Workout {
-    private final String name;
-    private final String description;
-    private final List<WorkoutExercise> exercises;
-    private final String notes;
-
-    public Workout(String name, String description, List<WorkoutExercise> exercises, String notes) {
+public record Workout(String name, String description, List<WorkoutExercise> exercises, String notes) {
+    public Workout {
         validateName(name);
         validateDescription(description);
         validateNotes(notes);
 
-        this.name = name;
-        this.description = description;
-        this.exercises = exercises;
-        this.notes = notes;
     }
 
     private void validateName(String name) {
@@ -37,19 +28,13 @@ public class Workout {
         }
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public List<WorkoutExercise> getExercises() {
-        return exercises;
-    }
-
-    public String getNotes() {
-        return notes;
+    @Override
+    public String toString() {
+        return "Workout{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", exercises=" + exercises +
+                ", notes='" + notes + '\'' +
+                '}';
     }
 }

@@ -16,7 +16,7 @@ public class InMemoryWorkout implements WorkoutRepository {
 
     @Override
     public void createWorkout(Workout workout) {
-        workouts.put(workout.getName(), workout);
+        workouts.put(workout.name(), workout);
     }
 
     @Override

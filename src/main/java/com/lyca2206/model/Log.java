@@ -31,4 +31,14 @@ public class Log {
     public LocalDateTime getTime() {
         return time;
     }
+
+    @Override
+    public String toString() {
+        return "Log{" +
+                "workout=" + workout +
+                ", exerciseLogs=" + exerciseLogs +
+                ", user=" + user +
+                ", time=" + time +
+                '}';
+    }
 }

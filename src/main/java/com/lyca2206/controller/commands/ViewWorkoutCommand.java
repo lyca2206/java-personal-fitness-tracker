@@ -18,21 +18,21 @@ public class ViewWorkoutCommand extends Command {
     public void execute(String[] tokens) {
         try {
             Workout workout = workoutRepository.getWorkout(tokens[0]);
-            System.out.println(workout.getName());
-            System.out.println(workout.getDescription());
+            System.out.println(workout.name());
+            System.out.println(workout.description());
 
-            workout.getExercises().forEach(workoutExercise ->
+            workout.exercises().forEach(workoutExercise ->
                     System.out.println(
-                            workoutExercise.getExercise().getName() + ": " +
-                            workoutExercise.getSets() + " sets of " +
-                            workoutExercise.getUnits() + " " + workoutExercise.getExercise().getMeasureUnit()
+                            workoutExercise.exercise().name() + ": " +
+                            workoutExercise.sets() + " sets of " +
+                            workoutExercise.units() + " " + workoutExercise.exercise().measureUnit()
                     )
             );
 
-            System.out.println(workout.getNotes());
+            System.out.println(workout.notes());
         } catch (IndexOutOfBoundsException e) {
             workoutRepository.getWorkouts().forEach(workout ->
-                    System.out.println(workout.getName() + " - " + workout.getDescription())
+                    System.out.println(workout.name() + " - " + workout.description())
             );
         } catch (InstanceNotFoundException e) {
             System.out.println(e.getMessage());

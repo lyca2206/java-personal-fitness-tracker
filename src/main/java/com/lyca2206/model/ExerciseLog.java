@@ -1,12 +1,8 @@
 package com.lyca2206.model;
 
-public class ExerciseLog {
-    private final WorkoutExercise exercise;
-    private final float minutes;
-
-    public ExerciseLog(WorkoutExercise exercise, float minutes) {
-        this.exercise = exercise;
-        this.minutes = minutes;
+public record ExerciseLog(WorkoutExercise exercise, float minutes) {
+    public ExerciseLog {
+        validateMinutes();
     }
 
     private void validateMinutes() {
@@ -15,11 +11,11 @@ public class ExerciseLog {
         }
     }
 
-    public WorkoutExercise getExercise() {
-        return exercise;
-    }
-
-    public float getMinutes() {
-        return minutes;
+    @Override
+    public String toString() {
+        return "ExerciseLog{" +
+                "exercise=" + exercise +
+                ", minutes=" + minutes +
+                '}';
     }
 }

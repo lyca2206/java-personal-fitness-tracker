@@ -26,17 +26,17 @@ public class ViewLogCommand extends Command {
                     (User) Session.getInstance().getPrincipal()
             );
 
-            System.out.println(log.getWorkout().getName() + " - " + log.getTime());
+            System.out.println(log.getWorkout().name() + " - " + log.getTime());
 
             log.getExerciseLogs().forEach(exerciseLog ->
-                    System.out.println(exerciseLog.getExercise().getExercise().getName() + ": " + exerciseLog.getMinutes() + " minutes")
+                    System.out.println(exerciseLog.exercise().exercise().name() + ": " + exerciseLog.minutes() + " minutes")
             );
 
         } catch (IndexOutOfBoundsException e) {
             List<Log> logs = logRepository.getLogs((User) Session.getInstance().getPrincipal());
             logs.forEach(log -> {
                 System.out.println(log.getTime());
-                System.out.println(log.getWorkout().getName());
+                System.out.println(log.getWorkout().name());
             });
         } catch (NumberFormatException e) {
             System.out.println("The given type isn't valid");

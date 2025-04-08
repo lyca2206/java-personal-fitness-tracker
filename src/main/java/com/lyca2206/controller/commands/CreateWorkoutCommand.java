@@ -31,7 +31,7 @@ public class CreateWorkoutCommand extends Command {
         try {
 
             Workout workout = new Workout(tokens[0], tokens[1], new ArrayList<>(), tokens[2]);
-            addToListWhileItReceivesInput(workout.getExercises());
+            addToListWhileItReceivesInput(workout.exercises());
             saveWorkoutIfExercisesAreNotEmpty(workout);
 
         } catch (IndexOutOfBoundsException e) {
@@ -75,7 +75,7 @@ public class CreateWorkoutCommand extends Command {
     }
 
     private void saveWorkoutIfExercisesAreNotEmpty(Workout workout) {
-        if (!workout.getExercises().isEmpty()) {
+        if (!workout.exercises().isEmpty()) {
             workoutRepository.createWorkout(workout);
             System.out.println("Workout created successfully");
         } else {
