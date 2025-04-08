@@ -63,5 +63,7 @@ public class ViewLogCommand extends Command {
         logs.forEach(log ->
                 System.out.print(i.getAndIncrement() + ". " + log.getSummary() + "\n")
         );
+
+        System.out.println("\n");
     }
 }

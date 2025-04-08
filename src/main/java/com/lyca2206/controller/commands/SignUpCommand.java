@@ -41,7 +41,7 @@ public class SignUpCommand extends Command {
     private User createUserInstance(String[] tokens) {
         String email = tokens[0];
         String password = tokens[1];
-        Role role = Role.valueOf(tokens[2]);
+        Role role = Role.valueOf(tokens[2].toUpperCase());
         String firstName = tokens[3];
         String lastName = tokens[4];
 
