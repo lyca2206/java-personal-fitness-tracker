@@ -19,6 +19,7 @@ public class HashGenerator {
     public static byte[] hashPassword(char[] password, byte[] salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
         KeySpec spec = new PBEKeySpec(password, salt, 65536, 128);
         SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+
         return factory.generateSecret(spec).getEncoded();
     }
 }
