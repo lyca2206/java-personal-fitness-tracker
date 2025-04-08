@@ -58,6 +58,16 @@ public record Workout(String name, String description, List<WorkoutExercise> wor
         return builder.toString();
     }
 
+    public float getCalories() {
+        float calories = 0.0f;
+
+        for (WorkoutExercise workoutExercise : workoutExercises) {
+            calories += workoutExercise.getCalories();
+        }
+
+        return calories;
+    }
+
     @Override
     public String toString() {
         return "Workout{" +

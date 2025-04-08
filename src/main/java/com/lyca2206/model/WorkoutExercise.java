@@ -25,6 +25,10 @@ public record WorkoutExercise(Exercise exercise, int sets, float units) {
         }
     }
 
+    public float getCalories() {
+        return exercise.caloriesPerUnit() * units * sets;
+    }
+
     @Override
     public String toString() {
         return "WorkoutExercise{" +

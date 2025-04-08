@@ -59,11 +59,13 @@ public class ViewLogCommand extends Command {
 
         List<Log> logs = logRepository.getLogs(user);
 
+        System.out.print("\n");
+
         AtomicInteger i = new AtomicInteger(1);
         logs.forEach(log ->
                 System.out.print(i.getAndIncrement() + ". " + log.getSummary() + "\n")
         );
 
-        System.out.println("\n");
+        System.out.print("\n");
     }
 }

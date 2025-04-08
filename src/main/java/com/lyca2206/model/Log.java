@@ -58,10 +58,20 @@ public class Log {
         });
 
         builder
-                .append("\nTotal time: TODO")
-                .append("\nCalories: TODO");
+                .append("\nTotal time: ").append(getTotalTime())
+                .append("\nCalories: ").append(workout.getCalories());
 
         return builder.toString();
+    }
+
+    public float getTotalTime() {
+        float totalTime = 0.0f;
+
+        for (ExerciseLog exerciseLog : exerciseLogs) {
+            totalTime += exerciseLog.minutes();
+        }
+
+        return totalTime;
     }
 
     @Override
