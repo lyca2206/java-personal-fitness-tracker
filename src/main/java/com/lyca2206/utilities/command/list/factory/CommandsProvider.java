@@ -22,19 +22,19 @@ public abstract class CommandsProvider {
 
     private void validateFactory(CommandsFactory commandsFactory) {
         if (commandsFactory == null) {
-            throw new IllegalArgumentException("The commandsFactory shouldn't be null");
+            throw new IllegalArgumentException("The commandsFactory must not be a null value");
         }
     }
 
     private void validateProcessor(CommandProcessor processor) {
         if (processor == null) {
-            throw new IllegalArgumentException("The command processor shouldn't be null");
+            throw new IllegalArgumentException("The command processor must not be a null value");
         }
     }
 
     private void validateKey(String key) {
         if (key == null || key.isEmpty()) {
-            throw new IllegalArgumentException("The given key represents an invalid value of a set of commands");
+            throw new IllegalArgumentException("The given key must not be null or empty");
         }
     }
 

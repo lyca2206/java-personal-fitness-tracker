@@ -13,7 +13,12 @@ import java.util.List;
 public class ViewLogCommand extends Command {
     private final LogRepository logRepository;
 
-    public ViewLogCommand(CommandProcessor processor, String key, String information, LogRepository logRepository) {
+    public ViewLogCommand(
+            CommandProcessor processor,
+            String key,
+            String information,
+            LogRepository logRepository
+    ) {
         super(processor, key, information);
         this.logRepository = logRepository;
     }

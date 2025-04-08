@@ -15,12 +15,18 @@ import java.util.List;
 
 public class SignedOutCommandsProvider extends CommandsProvider {
     private final Application application;
-    private final AuthenticationRepository repository;
+    private final AuthenticationRepository authenticationRepository;
 
-    public SignedOutCommandsProvider(CommandsFactory commandsFactory, CommandProcessor processor, String key, Application application, AuthenticationRepository repository) {
+    public SignedOutCommandsProvider(
+            CommandsFactory commandsFactory,
+            CommandProcessor processor,
+            String key,
+            Application application,
+            AuthenticationRepository authenticationRepository
+    ) {
         super(commandsFactory, processor, key);
         this.application = application;
-        this.repository = repository;
+        this.authenticationRepository = authenticationRepository;
     }
 
     @Override
@@ -28,22 +34,22 @@ public class SignedOutCommandsProvider extends CommandsProvider {
         return List.of(
                 new SignInCommand(
                         processor,
-                        "signIn",
-                        "signIn [email] [password] - Tries to sign in as the given user",
-                        commandsFactory, repository
+                        "SignIn",
+                        "SignIn <Email : Text> <Password : Text> : Signs In as the specified user if the credentials are valid",
+                        commandsFactory, authenticationRepository
                 ),
 
                 new SignUpCommand(
                         processor,
-                        "signUp",
-                        "signUp [email] [password] [role] [firstName] [lastName] - Creates a new user in the system using the given parameters",
-                        repository
+                        "SignUp",
+                        "SignUp <Email : Text> <Password : Text> <Role : Text> <FirstName : Text> <LastName : Text> : Signs Up in the application with the provided information",
+                        authenticationRepository
                 ),
 
                 new ExitCommand(
                         processor,
-                        "exit",
-                        "exit - Exits the application",
+                        "Exit",
+                        "Exit : Exits the application",
                         application
                 )
         );

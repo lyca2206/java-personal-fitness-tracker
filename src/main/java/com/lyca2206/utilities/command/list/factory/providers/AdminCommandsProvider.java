@@ -23,7 +23,15 @@ public class AdminCommandsProvider extends CommandsProvider {
     private final WorkoutRepository workoutRepository;
     private final Supplier<List<WorkoutExercise>> listSupplier;
 
-    public AdminCommandsProvider(CommandsFactory commandsFactory, CommandProcessor processor, String key, Reader reader, ExerciseRepository exerciseRepository, WorkoutRepository workoutRepository, Supplier<List<WorkoutExercise>> listSupplier) {
+    public AdminCommandsProvider(
+            CommandsFactory commandsFactory,
+            CommandProcessor processor,
+            String key,
+            Reader reader,
+            ExerciseRepository exerciseRepository,
+            WorkoutRepository workoutRepository,
+            Supplier<List<WorkoutExercise>> listSupplier
+    ) {
         super(commandsFactory, processor, key);
         this.reader = reader;
         this.exerciseRepository = exerciseRepository;
@@ -36,15 +44,15 @@ public class AdminCommandsProvider extends CommandsProvider {
         return List.of(
                 new CreateExerciseCommand(
                         processor,
-                        "createExercise",
-                        "createExercise [name] [measureUnit] [caloriesPerUnit] - Creates a new workoutExercise inside the application",
+                        "CreateExercise",
+                        "CreateExercise <Name : Text> <MeasureUnit : Text> <CaloriesPerUnit : Decimal> : Creates a new exercise with the provided information",
                         exerciseRepository
                 ),
 
                 new CreateWorkoutCommand(
                         processor,
-                        "createWorkout",
-                        "createWorkout [name] [description] [notes] - Creates a new workout inside the application, prompting to select various workoutExercises by typing [exerciseName] [# sets] [# units]",
+                        "CreateWorkout",
+                        "CreateWorkout <Name : Text> : Prompts the user to create a new workout, providing the necessary information for it",
                         reader,
                         workoutRepository,
                         exerciseRepository,
@@ -53,15 +61,15 @@ public class AdminCommandsProvider extends CommandsProvider {
 
                 new ViewWorkoutCommand(
                         processor,
-                        "viewWorkout",
-                        "viewWorkout [name] - Shows the information of the given workout",
+                        "ViewWorkout",
+                        "ViewWorkout [Index : Integer] : If an integer is provided, it shows the information of a specific log. Otherwise, it shows all available logs",
                         workoutRepository
                 ),
 
                 new SignOutCommand(
                         processor,
-                        "signOut",
-                        "signOut - Signs out from the application",
+                        "SignOut",
+                        "SignOut : Signs out from the application",
                         commandsFactory
                 )
         );

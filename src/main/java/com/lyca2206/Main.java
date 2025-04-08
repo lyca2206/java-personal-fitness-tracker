@@ -31,7 +31,12 @@ public class Main {
         Reader reader = new InputStreamReader(System.in);
         CommandProcessor processor = new MapCommandProcessor(new HashMap<>());
         Application application = new CommandLineApplication(reader, processor);
-        CommandsProvidersFactory providersFactory = new CommandsProvidersFactory(new HashSet<>());
+
+        CommandsProvidersFactory providersFactory = new CommandsProvidersFactory(
+                new HashSet<>(),
+                LinkedList::new
+        );
+
         AuthenticationRepository authenticationRepository = new InMemoryAuthentication(new HashMap<>());
 
         ExerciseRepository exerciseRepository = new InMemoryExercise(new HashMap<>());

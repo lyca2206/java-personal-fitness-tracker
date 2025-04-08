@@ -44,15 +44,15 @@ public class RegularCommandsProvider extends CommandsProvider {
         return List.of(
                 new ViewWorkoutCommand(
                         processor,
-                        "viewWorkout",
-                        "viewWorkout [name] - Shows the information of the given workout",
+                        "ViewWorkout",
+                        "ViewWorkout [Name : Text] : If a name is provided, it shows the information of a specific workout. Otherwise, it shows all available workouts",
                         workoutRepository
                 ),
 
                 new LogWorkoutCommand(
                         processor,
-                        "logWorkout",
-                        "logWorkout [name] - Allows you to enter the taken minutes to complete each workoutExercise in a workout",
+                        "LogWorkout",
+                        "LogWorkout <WorkoutName : Text> : Logs the times for each exercise in a workout",
                         reader,
                         logRepository,
                         workoutRepository,
@@ -61,15 +61,15 @@ public class RegularCommandsProvider extends CommandsProvider {
 
                 new ViewLogCommand(
                         processor,
-                        "viewWorkoutLog",
-                        "viewWorkoutLog [index] - Shows up the log of a given workout, specifying the time taken in each workoutExercise along with the timestamp",
+                        "ViewLog",
+                        "ViewLog [Name : Text] : If a name is provided, it shows the information of a specific workout. Otherwise, it shows all available workouts",
                         logRepository
                 ),
 
                 new SignOutCommand(
                         processor,
-                        "signOut",
-                        "signOut - Signs out from the application",
+                        "SignOut",
+                        "SignOut : Signs out from the application",
                         commandsFactory
                 )
         );
