@@ -29,7 +29,7 @@ public class InMemoryWorkout implements WorkoutRepository {
         Workout workout = workouts.get(name);
 
         if (workout == null) {
-            throw new InstanceNotFoundException("The given workout doesn't exist");
+            throw new InstanceNotFoundException("The given workout couldn't be found in the system");
         }
 
         return workout;
