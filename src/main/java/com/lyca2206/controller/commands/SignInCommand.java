@@ -11,7 +11,13 @@ public class SignInCommand extends Command {
     private final CommandsFactory commandsFactory;
     private final AuthenticationRepository authenticationRepository;
 
-    public SignInCommand(CommandProcessor processor, String key, String information, CommandsFactory commandsFactory, AuthenticationRepository authenticationRepository) {
+    public SignInCommand(
+            CommandProcessor processor,
+            String key,
+            String information,
+            CommandsFactory commandsFactory,
+            AuthenticationRepository authenticationRepository
+    ) {
         super(processor, key, information);
         this.commandsFactory = commandsFactory;
         this.authenticationRepository = authenticationRepository;
