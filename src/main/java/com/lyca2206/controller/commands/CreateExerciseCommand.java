@@ -8,7 +8,12 @@ import com.lyca2206.repository.abstraction.ExerciseRepository;
 public class CreateExerciseCommand extends Command {
     private final ExerciseRepository exerciseRepository;
 
-    public CreateExerciseCommand(CommandProcessor processor, String key, String information, ExerciseRepository exerciseRepository) {
+    public CreateExerciseCommand(
+            CommandProcessor processor,
+            String key,
+            String information,
+            ExerciseRepository exerciseRepository
+    ) {
         super(processor, key, information);
         this.exerciseRepository = exerciseRepository;
     }
@@ -17,21 +22,30 @@ public class CreateExerciseCommand extends Command {
     public void execute(String[] tokens) {
         try {
 
-            Exercise exercise = new Exercise(
-                    tokens[0],
-                    tokens[1],
-                    Float.parseFloat(tokens[2])
-            );
-
+            Exercise exercise = createExerciseInstance(tokens);
             exerciseRepository.createExercise(exercise);
-            System.out.println("Exercise created successfully");
+            System.out.println("\nThe exercise has been created successfully\n");
 
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Not enough information given to create an exercise");
+
+            System.out.println("\nThe provided information isn't enough to create a new exercise\n");
+
         } catch (NumberFormatException e) {
-            System.out.println("Given value type is not compatible");
+
+            System.out.println("\nThe provided type of one of the parameters is not valid\n");
+
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+
+            System.out.println("\n" + e.getMessage() + "\n");
+
         }
+    }
+
+    private Exercise createExerciseInstance(String[] tokens) {
+        String name = tokens[0];
+        String measureUnit = tokens[1];
+        float caloriesPerUnit = Float.parseFloat(tokens[2]);
+
+        return new Exercise(name, measureUnit, caloriesPerUnit);
     }
 }
