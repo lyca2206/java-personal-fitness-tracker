@@ -36,7 +36,7 @@ public class LogWorkoutCommand extends Command {
             Workout workout = workoutRepository.getWorkout(tokens[0]);
 
             List<ExerciseLog> exerciseLogs = new LinkedList<>();
-            workout.exercises().forEach(workoutExercise -> {
+            workout.workoutExercises().forEach(workoutExercise -> {
                 System.out.println(workoutExercise.exercise().name() + ": ");
                 float minutes = readMinuteValue(new BufferedReader(reader));
                 exerciseLogs.add(new ExerciseLog(workoutExercise, minutes));

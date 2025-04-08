@@ -62,7 +62,8 @@ public class Main {
                         Role.ADMIN.name(),
                         reader,
                         exerciseRepository,
-                        workoutRepository
+                        workoutRepository,
+                        LinkedList::new
                 ),
 
                 new RegularCommandsProvider(

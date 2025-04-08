@@ -2,84 +2,123 @@ package com.lyca2206.controller.commands;
 
 import com.lyca2206.libraries.command.processor.Command;
 import com.lyca2206.libraries.command.processor.CommandProcessor;
+import com.lyca2206.model.Exercise;
 import com.lyca2206.model.Workout;
 import com.lyca2206.model.WorkoutExercise;
 import com.lyca2206.repository.abstraction.ExerciseRepository;
 import com.lyca2206.repository.abstraction.WorkoutRepository;
 
+import javax.management.InstanceNotFoundException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.function.Supplier;
 
 public class CreateWorkoutCommand extends Command {
     private final Reader reader;
-    private final ExerciseRepository exerciseRepository;
     private final WorkoutRepository workoutRepository;
+    private final ExerciseRepository exerciseRepository;
+    private final Supplier<List<WorkoutExercise>> listSupplier;
 
-    public CreateWorkoutCommand(CommandProcessor processor, String key, String information, Reader reader, ExerciseRepository exerciseRepository, WorkoutRepository workoutRepository) {
+    public CreateWorkoutCommand(
+            CommandProcessor processor,
+            String key, String information,
+            Reader reader,
+            WorkoutRepository workoutRepository,
+            ExerciseRepository exerciseRepository, Supplier<List<WorkoutExercise>> listSupplier
+    ) {
         super(processor, key, information);
         this.reader = reader;
-        this.exerciseRepository = exerciseRepository;
         this.workoutRepository = workoutRepository;
+        this.exerciseRepository = exerciseRepository;
+        this.listSupplier = listSupplier;
     }
 
     @Override
     public void execute(String[] tokens) {
         try {
 
-            Workout workout = new Workout(tokens[0], tokens[1], new ArrayList<>(), tokens[2]);
-            addToListWhileItReceivesInput(workout.exercises());
-            saveWorkoutIfExercisesAreNotEmpty(workout);
+            Workout workout = createWorkoutInstance(tokens);
+            readInputToAddWorkoutExercises(workout);
+            saveWorkout(workout);
 
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Not enough parameters to create a workout");
+
+            System.out.println("\nThe provided information isn't enough to create a new workout\n");
+
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+
+            System.out.println("\n" + e.getMessage() + "\n");
+
         }
     }
 
-    private void addToListWhileItReceivesInput(List<WorkoutExercise> list) throws IOException {
+    private Workout createWorkoutInstance(String[] tokens) {
+        String name = tokens[0];
+        String description = tokens[1];
+        List<WorkoutExercise> workoutExercises = listSupplier.get();
+        String notes = tokens[2];
+
+        return new Workout(name, description, workoutExercises, notes);
+    }
+
+    private void readInputToAddWorkoutExercises(Workout workout) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(reader);
-        boolean isReceivingInput = true;
+        boolean isRunning = true;
 
-        while (isReceivingInput) {
+        while (isRunning) {
             String line = bufferedReader.readLine();
-            String[] workoutAttributes = line.trim().split(" ");
+            String[] tokens = line.trim().split(" ");
 
-            if (Objects.equals(workoutAttributes[0], "")) { isReceivingInput = false; }
-            else { addWorkoutExerciseToList(workoutAttributes, list); }
+            String name = tokens[0];
+
+            if (name.isEmpty()) {
+                isRunning = false;
+            } else {
+                addWorkoutExerciseToWorkout(tokens, workout);
+            }
         }
     }
 
-    private void addWorkoutExerciseToList(String[] workoutAttributes, List<WorkoutExercise> list) {
+    private void addWorkoutExerciseToWorkout(String[] tokens, Workout workout) {
         try {
 
-            WorkoutExercise workoutExercise = new WorkoutExercise(
-                    exerciseRepository.getExercise(workoutAttributes[0]),
-                    Integer.parseInt(workoutAttributes[1]),
-                    Integer.parseInt(workoutAttributes[2])
-            );
-
-            list.add(workoutExercise);
+            WorkoutExercise workoutExercise = createWorkoutExerciseInstance(tokens);
+            workout.workoutExercises().add(workoutExercise);
 
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Not enough information to add the exercise to the workout");
+
+            System.out.println("\nThe provided information isn't enough to create a new workout exercise\n");
+
         } catch (NumberFormatException e) {
-            System.out.println("The given types are not compatible");
+
+            System.out.println("\nThe provided types aren't compatible\n");
+
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+
+            System.out.println("\n" + e.getMessage() + "\n");
+
         }
     }
 
-    private void saveWorkoutIfExercisesAreNotEmpty(Workout workout) {
-        if (!workout.exercises().isEmpty()) {
-            workoutRepository.createWorkout(workout);
-            System.out.println("Workout created successfully");
-        } else {
-            System.out.println("Not enough exercises given to create the workout");
+    private WorkoutExercise createWorkoutExerciseInstance(String[] tokens) throws InstanceNotFoundException {
+        String exerciseName = tokens[0];
+        int sets = Integer.parseInt(tokens[1]);
+        float units = Float.parseFloat(tokens[2]);
+
+        Exercise exercise = exerciseRepository.getExercise(exerciseName);
+
+        return new WorkoutExercise(exercise, sets, units);
+    }
+
+    private void saveWorkout(Workout workout) {
+        if (workout.workoutExercises().isEmpty()) {
+            System.out.println("\nThere are not enough workout exercises to create a new workout\n");
+            return;
         }
+
+        workoutRepository.createWorkout(workout);
+        System.out.println("\nThe workout has been created successfully\n");
     }
 }

@@ -2,12 +2,11 @@ package com.lyca2206.model;
 
 import java.util.List;
 
-public record Workout(String name, String description, List<WorkoutExercise> exercises, String notes) {
+public record Workout(String name, String description, List<WorkoutExercise> workoutExercises, String notes) {
     public Workout {
         validateName(name);
         validateDescription(description);
         validateNotes(notes);
-
     }
 
     private void validateName(String name) {
@@ -33,7 +32,7 @@ public record Workout(String name, String description, List<WorkoutExercise> exe
         return "Workout{" +
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", exercises=" + exercises +
+                ", workoutExercises=" + workoutExercises +
                 ", notes='" + notes + '\'' +
                 '}';
     }

@@ -21,7 +21,7 @@ public class ViewWorkoutCommand extends Command {
             System.out.println(workout.name());
             System.out.println(workout.description());
 
-            workout.exercises().forEach(workoutExercise ->
+            workout.workoutExercises().forEach(workoutExercise ->
                     System.out.println(
                             workoutExercise.exercise().name() + ": " +
                             workoutExercise.sets() + " sets of " +
