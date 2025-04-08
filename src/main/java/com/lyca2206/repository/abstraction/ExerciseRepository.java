@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface ExerciseRepository {
     void createExercise(Exercise exercise);
+
     List<Exercise> getExercises();
+
     Exercise getExercise(String name) throws InstanceNotFoundException;
 }

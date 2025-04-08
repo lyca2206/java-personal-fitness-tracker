@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface LogRepository {
     void logWorkout(Log log);
+
     List<Log> getLogs(User user);
+
     Log getLog(int index, User user) throws InstanceNotFoundException;
 }
