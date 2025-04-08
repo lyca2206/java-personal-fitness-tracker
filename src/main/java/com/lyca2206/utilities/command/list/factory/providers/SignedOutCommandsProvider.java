@@ -30,8 +30,7 @@ public class SignedOutCommandsProvider extends CommandsProvider {
                         processor,
                         "signIn",
                         "signIn [email] [password] - Tries to sign in as the given user",
-                        repository,
-                        commandsFactory
+                        commandsFactory, repository
                 ),
 
                 new SignUpCommand(

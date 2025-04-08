@@ -7,40 +7,49 @@ import com.lyca2206.model.User;
 import com.lyca2206.repository.abstraction.AuthenticationRepository;
 import com.lyca2206.utilities.command.list.factory.CommandsFactory;
 
-import java.util.Collection;
-
 public class SignInCommand extends Command {
-    private final AuthenticationRepository authenticationRepository;
     private final CommandsFactory commandsFactory;
+    private final AuthenticationRepository authenticationRepository;
 
-    public SignInCommand(CommandProcessor processor, String key, String information, AuthenticationRepository authenticationRepository, CommandsFactory commandsFactory) {
+    public SignInCommand(CommandProcessor processor, String key, String information, CommandsFactory commandsFactory, AuthenticationRepository authenticationRepository) {
         super(processor, key, information);
-        this.authenticationRepository = authenticationRepository;
         this.commandsFactory = commandsFactory;
+        this.authenticationRepository = authenticationRepository;
     }
 
     @Override
     public void execute(String[] tokens) {
         try {
 
-            User user = new User(
-                    tokens[0],
-                    tokens[1]
-            );
-
+            User user = createUserInstance(tokens);
             User storedUser = authenticationRepository.signIn(user);
 
-            Collection<Command> commands = commandsFactory.createCommands(storedUser.getRole().name());
-            processor.changeCommands(commands);
-
+            changeCommandsWithUserRole(storedUser);
             Session.getInstance().setPrincipal(storedUser);
 
-            System.out.println("Signed in successfully");
+            System.out.println("\nYou have signed into the application successfully\n");
 
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Not enough information given for authentication");
+
+            System.out.println("\nThe provided information isn't enough to proceed with authentication\n");
+
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+
+            System.out.println("\n" + e.getMessage() + "\n");
+
         }
+    }
+
+    private User createUserInstance(String[] tokens) {
+        String email = tokens[0];
+        String password = tokens[1];
+
+        return new User(email, password);
+    }
+
+    private void changeCommandsWithUserRole(User storedUser) {
+        processor.changeCommands(
+                commandsFactory.createCommands(storedUser.getRole().name())
+        );
     }
 }
