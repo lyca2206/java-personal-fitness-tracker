@@ -5,23 +5,29 @@ import com.lyca2206.libraries.command.processor.CommandProcessor;
 import com.lyca2206.libraries.session.Session;
 import com.lyca2206.utilities.command.list.factory.CommandsFactory;
 
-import java.util.Collection;
-
 public class SignOutCommand extends Command {
     private final CommandsFactory commandsFactory;
 
-    public SignOutCommand(CommandProcessor processor, String key, String information, CommandsFactory commandsFactory) {
+    public SignOutCommand(
+            CommandProcessor processor,
+            String key,
+            String information,
+            CommandsFactory commandsFactory
+    ) {
         super(processor, key, information);
         this.commandsFactory = commandsFactory;
     }
 
     @Override
     public void execute(String[] tokens) {
-        Collection<Command> commands = commandsFactory.createCommands("SIGNED_OUT");
-        processor.changeCommands(commands);
-
+        changeCommandsToSignedOut();
         Session.getInstance().setPrincipal(null);
+        System.out.println("\nYou have signed out of the application successfully\n");
+    }
 
-        System.out.println("Signed out successfully");
+    private void changeCommandsToSignedOut() {
+        processor.changeCommands(
+                commandsFactory.createCommands("SIGNED_OUT")
+        );
     }
 }
