@@ -23,11 +23,12 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.*;
 
-//TODO. Refactor this class.
-//TODO. Improve navigation.
-
 public class Main {
     public static void main(String[] args) {
+        setupAndRunApplication();
+    }
+
+    private static void setupAndRunApplication() {
         Reader reader = new InputStreamReader(System.in);
         CommandProcessor processor = new MapCommandProcessor(new HashMap<>());
         Application application = new CommandLineApplication(reader, processor);
