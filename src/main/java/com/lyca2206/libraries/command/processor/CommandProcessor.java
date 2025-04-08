@@ -4,6 +4,8 @@ import java.util.Collection;
 
 public interface CommandProcessor {
     String getCommandInformation();
+
     void execute(String[] tokens);
+
     void changeCommands(Collection<Command> commands);
 }

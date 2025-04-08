@@ -17,13 +17,13 @@ public abstract class Command {
 
     private void validateProcessor(CommandProcessor processor) {
         if (processor == null) {
-            throw new IllegalArgumentException("The command processor shouldn't be null");
+            throw new IllegalArgumentException("The command processor must not be a null value");
         }
     }
 
     private void validateKey(String key) {
         if (key == null || key.isEmpty()) {
-            throw new IllegalArgumentException("The given key represents an invalid value of a command");
+            throw new IllegalArgumentException("The command's key must not be null or empty");
         }
     }
 
