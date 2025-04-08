@@ -49,7 +49,8 @@ public class AdminCommandsProvider extends CommandsProvider {
                 new ViewWorkoutCommand(
                         processor,
                         "viewWorkout",
-                        "viewWorkout [name] - Shows the information of the given workout"
+                        "viewWorkout [name] - Shows the information of the given workout",
+                        workoutRepository
                 ),
 
                 new SignOutCommand(

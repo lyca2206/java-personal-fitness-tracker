@@ -64,7 +64,8 @@ public class Main {
                 new RegularCommandsProvider(
                         providersFactory,
                         processor,
-                        Role.REGULAR.name()
+                        Role.REGULAR.name(),
+                        workoutRepository
                 )
         ));
 

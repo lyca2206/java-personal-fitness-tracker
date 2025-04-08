@@ -3,6 +3,7 @@ package com.lyca2206.repository.implementation;
 import com.lyca2206.model.Workout;
 import com.lyca2206.repository.abstraction.WorkoutRepository;
 
+import javax.management.InstanceNotFoundException;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +25,13 @@ public class InMemoryWorkout implements WorkoutRepository {
     }
 
     @Override
-    public Workout getWorkout(String name) {
-        return workouts.get(name);
+    public Workout getWorkout(String name) throws InstanceNotFoundException {
+        Workout workout = workouts.get(name);
+
+        if (workout == null) {
+            throw new InstanceNotFoundException("The given workout doesn't exist");
+        }
+
+        return workout;
     }
 }

@@ -6,6 +6,7 @@ import com.lyca2206.controller.commands.ViewLogCommand;
 import com.lyca2206.controller.commands.ViewWorkoutCommand;
 import com.lyca2206.libraries.command.processor.Command;
 import com.lyca2206.libraries.command.processor.CommandProcessor;
+import com.lyca2206.repository.abstraction.WorkoutRepository;
 import com.lyca2206.utilities.command.list.factory.CommandsFactory;
 import com.lyca2206.utilities.command.list.factory.CommandsProvider;
 
@@ -13,8 +14,10 @@ import java.util.Collection;
 import java.util.List;
 
 public class RegularCommandsProvider extends CommandsProvider {
-    public RegularCommandsProvider(CommandsFactory commandsFactory, CommandProcessor processor, String key) {
+    private final WorkoutRepository workoutRepository;
+    public RegularCommandsProvider(CommandsFactory commandsFactory, CommandProcessor processor, String key, WorkoutRepository workoutRepository) {
         super(commandsFactory, processor, key);
+        this.workoutRepository = workoutRepository;
     }
 
     @Override
@@ -23,7 +26,8 @@ public class RegularCommandsProvider extends CommandsProvider {
                 new ViewWorkoutCommand(
                         processor,
                         "viewWorkout",
-                        "viewWorkout [name] - Shows the information of the given workout"
+                        "viewWorkout [name] - Shows the information of the given workout",
+                        workoutRepository
                 ),
 
                 new LogWorkoutCommand(
