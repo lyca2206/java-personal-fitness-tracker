@@ -4,21 +4,35 @@ import com.lyca2206.model.Log;
 import com.lyca2206.model.User;
 import com.lyca2206.repository.abstraction.LogRepository;
 
+import javax.management.InstanceNotFoundException;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class InMemoryLog implements LogRepository {
+    private Map<User, List<Log>> logs;
+
     @Override
-    public Log logWorkout(Log log) {
-        return null;
+    public void logWorkout(Log log) {
+        if (!logs.containsKey(log.getUser())) {
+            logs.put(log.getUser(), new LinkedList<>());
+        }
+
+        List<Log> userLogs = logs.get(log.getUser());
+        userLogs.add(log);
     }
 
     @Override
     public List<Log> getLogs(User user) {
-        return List.of();
+        return logs.get(user);
     }
 
     @Override
-    public Log getLog(String name, User user) {
-        return null;
+    public Log getLog(int index, User user) throws InstanceNotFoundException {
+        try {
+            return logs.get(user).get(index);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InstanceNotFoundException("The log with index " + index + " couldn't be found");
+        }
     }
 }
