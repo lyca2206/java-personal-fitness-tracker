@@ -6,10 +6,17 @@ import com.lyca2206.model.Workout;
 import com.lyca2206.repository.abstraction.WorkoutRepository;
 
 import javax.management.InstanceNotFoundException;
+import java.util.List;
 
 public class ViewWorkoutCommand extends Command {
     private final WorkoutRepository workoutRepository;
-    public ViewWorkoutCommand(CommandProcessor processor, String key, String information, WorkoutRepository workoutRepository) {
+
+    public ViewWorkoutCommand(
+            CommandProcessor processor,
+            String key,
+            String information,
+            WorkoutRepository workoutRepository
+    ) {
         super(processor, key, information);
         this.workoutRepository = workoutRepository;
     }
@@ -17,25 +24,37 @@ public class ViewWorkoutCommand extends Command {
     @Override
     public void execute(String[] tokens) {
         try {
-            Workout workout = workoutRepository.getWorkout(tokens[0]);
-            System.out.println(workout.name());
-            System.out.println(workout.description());
 
-            workout.workoutExercises().forEach(workoutExercise ->
-                    System.out.println(
-                            workoutExercise.exercise().name() + ": " +
-                            workoutExercise.sets() + " sets of " +
-                            workoutExercise.units() + " " + workoutExercise.exercise().measureUnit()
-                    )
-            );
+            getWorkout(tokens);
 
-            System.out.println(workout.notes());
         } catch (IndexOutOfBoundsException e) {
-            workoutRepository.getWorkouts().forEach(workout ->
-                    System.out.println(workout.name() + " - " + workout.description())
-            );
-        } catch (InstanceNotFoundException e) {
+
+            getWorkouts();
+
+        } catch (Exception e) {
+
             System.out.println(e.getMessage());
+
         }
+    }
+
+    private void getWorkout(String[] tokens) throws InstanceNotFoundException {
+        String name = tokens[0];
+
+        Workout workout = workoutRepository.getWorkout(name);
+
+        System.out.println("\n" + workout.getAllInformation() + "\n");
+    }
+
+    private void getWorkouts() {
+        List<Workout> workouts = workoutRepository.getWorkouts();
+
+        System.out.println();
+
+        workouts.forEach(workout ->
+                System.out.println(workout.getSummary())
+        );
+
+        System.out.println();
     }
 }
