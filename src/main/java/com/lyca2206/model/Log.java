@@ -16,6 +16,10 @@ public class Log {
         this.time = LocalDateTime.now();
     }
 
+    public Workout getWorkout() {
+        return workout;
+    }
+
     public List<ExerciseLog> getExerciseLogs() {
         return exerciseLogs;
     }
