@@ -39,8 +39,10 @@ public class CreateWorkoutCommand extends Command {
     public void execute(String[] tokens) {
         try {
 
-            Workout workout = createWorkoutInstance(tokens);
-            readInputToAddWorkoutExercises(workout);
+            BufferedReader bufferedReader = new BufferedReader(reader);
+
+            Workout workout = createWorkoutInstance(bufferedReader, tokens);
+            readInputToAddWorkoutExercises(bufferedReader, workout);
             saveWorkout(workout);
 
         } catch (IndexOutOfBoundsException e) {
@@ -54,17 +56,20 @@ public class CreateWorkoutCommand extends Command {
         }
     }
 
-    private Workout createWorkoutInstance(String[] tokens) {
+    private Workout createWorkoutInstance(BufferedReader bufferedReader, String[] tokens) throws IOException {
         String name = tokens[0];
-        String description = tokens[1];
         List<WorkoutExercise> workoutExercises = listSupplier.get();
-        String notes = tokens[2];
+
+        System.out.println("\nWrite the description of the new workout\n");
+        String description = bufferedReader.readLine();
+
+        System.out.println("\nWrite the notes of the new workout\n");
+        String notes = bufferedReader.readLine();
 
         return new Workout(name, description, workoutExercises, notes);
     }
 
-    private void readInputToAddWorkoutExercises(Workout workout) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(reader);
+    private void readInputToAddWorkoutExercises(BufferedReader bufferedReader, Workout workout) throws IOException {
         boolean isRunning = true;
 
         System.out.println(
