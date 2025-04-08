@@ -62,7 +62,7 @@ public class AdminCommandsProvider extends CommandsProvider {
                 new ViewWorkoutCommand(
                         processor,
                         "ViewWorkout",
-                        "ViewWorkout [Index : Integer] : If an integer is provided, it shows the information of a specific log. Otherwise, it shows all available logs",
+                        "ViewWorkout [Name : Text] : If a name is provided, it shows the information of a specific workout. Otherwise, it shows all available workouts",
                         workoutRepository
                 ),
 

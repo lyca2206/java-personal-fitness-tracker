@@ -62,7 +62,7 @@ public class RegularCommandsProvider extends CommandsProvider {
                 new ViewLogCommand(
                         processor,
                         "ViewLog",
-                        "ViewLog [Name : Text] : If a name is provided, it shows the information of a specific workout. Otherwise, it shows all available workouts",
+                        "ViewLog [Index : Integer] : If an integer is provided, it shows the information of a specific log. Otherwise, it shows all available logs",
                         logRepository
                 ),
 
