@@ -34,7 +34,7 @@ public class Log {
     }
 
     public String getSummary() {
-        return "> Workout: " + workout.name() + "\n" + "  Date: " + time.format(DateTimeFormatter.ISO_DATE);
+        return "Workout: " + workout.name() + "\n" + "  Date: " + time.format(DateTimeFormatter.ISO_DATE);
     }
 
     public String getAllInformation() {

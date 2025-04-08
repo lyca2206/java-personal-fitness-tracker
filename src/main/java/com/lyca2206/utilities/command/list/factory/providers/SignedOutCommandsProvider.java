@@ -42,7 +42,7 @@ public class SignedOutCommandsProvider extends CommandsProvider {
                 new SignUpCommand(
                         processor,
                         "SignUp",
-                        "SignUp <Email : Text> <Password : Text> <Role : Text> <FirstName : Text> <LastName : Text> : Signs Up in the application with the provided information",
+                        "SignUp <Email : Text> <Password : Text> <Role : REGULAR | ADMIN> <FirstName : Text> <LastName : Text> : Signs Up in the application with the provided information",
                         authenticationRepository
                 ),
 

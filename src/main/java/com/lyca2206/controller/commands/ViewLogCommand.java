@@ -9,6 +9,7 @@ import com.lyca2206.repository.abstraction.LogRepository;
 
 import javax.management.InstanceNotFoundException;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ViewLogCommand extends Command {
     private final LogRepository logRepository;
@@ -48,7 +49,7 @@ public class ViewLogCommand extends Command {
         int i = Integer.parseInt(tokens[0]);
         User user = (User) Session.getInstance().getPrincipal();
 
-        Log log = logRepository.getLog(i, user);
+        Log log = logRepository.getLog(i - 1, user);
 
         System.out.println("\n" + log.getAllInformation() + "\n");
     }
@@ -58,6 +59,9 @@ public class ViewLogCommand extends Command {
 
         List<Log> logs = logRepository.getLogs(user);
 
-        logs.forEach(log -> System.out.print("\n" + log.getSummary() + "\n\n"));
+        AtomicInteger i = new AtomicInteger(1);
+        logs.forEach(log ->
+                System.out.print(i.getAndIncrement() + ". " + log.getSummary() + "\n")
+        );
     }
 }
