@@ -8,9 +8,11 @@ import com.lyca2206.model.Exercise;
 import com.lyca2206.model.Role;
 import com.lyca2206.repository.abstraction.AuthenticationRepository;
 import com.lyca2206.repository.abstraction.ExerciseRepository;
+import com.lyca2206.repository.abstraction.LogRepository;
 import com.lyca2206.repository.abstraction.WorkoutRepository;
 import com.lyca2206.repository.implementation.InMemoryAuthentication;
 import com.lyca2206.repository.implementation.InMemoryExercise;
+import com.lyca2206.repository.implementation.InMemoryLog;
 import com.lyca2206.repository.implementation.InMemoryWorkout;
 import com.lyca2206.utilities.command.list.factory.CommandsProvidersFactory;
 import com.lyca2206.utilities.command.list.factory.providers.AdminCommandsProvider;
@@ -43,6 +45,8 @@ public class Main {
 
         WorkoutRepository workoutRepository = new InMemoryWorkout(new HashMap<>());
 
+        LogRepository logRepository = new InMemoryLog(new HashMap<>());
+
         providersFactory.setProviders(List.of(
                 new SignedOutCommandsProvider(
                         providersFactory,
@@ -65,7 +69,9 @@ public class Main {
                         providersFactory,
                         processor,
                         Role.REGULAR.name(),
-                        workoutRepository
+                        workoutRepository,
+                        logRepository,
+                        reader
                 )
         ));
 

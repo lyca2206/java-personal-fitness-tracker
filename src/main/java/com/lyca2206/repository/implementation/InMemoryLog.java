@@ -10,7 +10,11 @@ import java.util.List;
 import java.util.Map;
 
 public class InMemoryLog implements LogRepository {
-    private Map<User, List<Log>> logs;
+    private final Map<User, List<Log>> logs;
+
+    public InMemoryLog(Map<User, List<Log>> logs) {
+        this.logs = logs;
+    }
 
     @Override
     public void logWorkout(Log log) {
