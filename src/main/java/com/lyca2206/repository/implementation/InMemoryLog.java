@@ -35,7 +35,7 @@ public class InMemoryLog implements LogRepository {
     public Log getLog(int index, User user) throws InstanceNotFoundException {
         try {
             return logs.get(user).get(index);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new InstanceNotFoundException("The log with index " + index + " couldn't be found");
         }
     }

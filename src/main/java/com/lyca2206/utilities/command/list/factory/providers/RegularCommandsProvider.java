@@ -49,7 +49,8 @@ public class RegularCommandsProvider extends CommandsProvider {
                 new ViewLogCommand(
                         processor,
                         "viewWorkoutLog",
-                        "viewWorkoutLog [name] - Shows up the log of a given workout, specifying the time taken in each exercise along with the timestamp"
+                        "viewWorkoutLog [index] - Shows up the log of a given workout, specifying the time taken in each exercise along with the timestamp",
+                        logRepository
                 ),
 
                 new SignOutCommand(

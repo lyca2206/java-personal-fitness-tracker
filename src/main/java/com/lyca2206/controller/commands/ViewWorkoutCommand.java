@@ -30,7 +30,7 @@ public class ViewWorkoutCommand extends Command {
             );
 
             System.out.println(workout.getNotes());
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             workoutRepository.getWorkouts().forEach(workout ->
                     System.out.println(workout.getName() + " - " + workout.getDescription())
             );
