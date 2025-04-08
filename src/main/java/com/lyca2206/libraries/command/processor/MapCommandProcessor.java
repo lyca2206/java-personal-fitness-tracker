@@ -29,6 +29,7 @@ public class MapCommandProcessor implements CommandProcessor {
         Command command = commands.get(tokens[0]);
         
         if (command == null) {
+            System.out.println("\nThe given command has not been found\n");
             return;
         }
         
