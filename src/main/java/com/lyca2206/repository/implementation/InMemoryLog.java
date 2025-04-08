@@ -5,25 +5,26 @@ import com.lyca2206.model.User;
 import com.lyca2206.repository.abstraction.LogRepository;
 
 import javax.management.InstanceNotFoundException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Supplier;
 
 public class InMemoryLog implements LogRepository {
     private final Map<User, List<Log>> logs;
+    private final Supplier<List<Log>> listSupplier;
 
-    public InMemoryLog(Map<User, List<Log>> logs) {
+    public InMemoryLog(Map<User, List<Log>> logs, Supplier<List<Log>> listSupplier) {
         this.logs = logs;
+        this.listSupplier = listSupplier;
     }
 
     @Override
     public void logWorkout(Log log) {
         if (!logs.containsKey(log.getUser())) {
-            logs.put(log.getUser(), new LinkedList<>());
+            logs.put(log.getUser(), listSupplier.get());
         }
 
-        List<Log> userLogs = logs.get(log.getUser());
-        userLogs.add(log);
+        List<Log> logList = logs.get(log.getUser());
+        logList.add(log);
     }
 
     @Override
@@ -32,11 +33,15 @@ public class InMemoryLog implements LogRepository {
     }
 
     @Override
-    public Log getLog(int index, User user) throws InstanceNotFoundException {
+    public Log getLog(int i, User user) throws InstanceNotFoundException {
         try {
-            return logs.get(user).get(index);
-        } catch (IndexOutOfBoundsException e) {
-            throw new InstanceNotFoundException("The log with index " + index + " couldn't be found");
+
+            return logs.get(user).get(i);
+
+        } catch (Exception e) {
+
+            throw new InstanceNotFoundException("The given log couldn't be found in the system");
+
         }
     }
 }

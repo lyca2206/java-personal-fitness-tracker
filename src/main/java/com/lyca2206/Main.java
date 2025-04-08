@@ -45,7 +45,7 @@ public class Main {
 
         WorkoutRepository workoutRepository = new InMemoryWorkout(new HashMap<>());
 
-        LogRepository logRepository = new InMemoryLog(new HashMap<>());
+        LogRepository logRepository = new InMemoryLog(new HashMap<>(), LinkedList::new);
 
         providersFactory.setProviders(List.of(
                 new SignedOutCommandsProvider(
