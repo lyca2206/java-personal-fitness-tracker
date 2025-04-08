@@ -7,7 +7,12 @@ import com.lyca2206.libraries.command.processor.CommandProcessor;
 public class ExitCommand extends Command {
     private final Application application;
 
-    public ExitCommand(CommandProcessor processor, String key, String information, Application application) {
+    public ExitCommand(
+            CommandProcessor processor,
+            String key,
+            String information,
+            Application application
+    ) {
         super(processor, key, information);
         this.application = application;
     }
